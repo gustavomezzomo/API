@@ -1,10 +1,16 @@
 from bs4 import BeautifulSoup
-import requests
+from selenium import webdriver
+import time
 
-source = requests.get('https://www.youtube.com/watch?v=gqUqGaXipe8').text
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+driver = webdriver.Chrome(options = options)
+url = 'https://www.youtube.com/watch?v=gqUqGaXipe8'
+driver.get(url)
+time.sleep(2)
+soup = BeautifulSoup(driver.page_source, 'html.parser')
+driver.quit()
 
-soup = BeautifulSoup(source, 'lxml')
 
-link = [i['href'] for i in soup.findAll('a', class_='yt-simple-endpoint style-scope yt-formatted-string', href=True)]
-
+link = [i['href'] for i in soup.select('div#meta div#description [href]')]
 print(link)
