@@ -13,8 +13,6 @@ for i in text [0:]:
     result = i.text.strip()
     semestre_list.append(result)
 
-print(semestre_list)
-
 textfile = open("semestre_file.txt", "w")
 for element in semestre_list:
     textfile.write(element + "\n")
