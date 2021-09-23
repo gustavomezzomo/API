@@ -1,17 +1,20 @@
 from PySimpleGUI import PySimpleGUI as sg
-from typing import List, Text
 from bs4 import BeautifulSoup
 import requests
+from tkinter import *
+from semestre import Semestres
 
 #layout
-sg.theme('Reddit')
+sg.theme('BlueMono')
 layout = [
-    [sg.Text('bem vindo ao nosso executável de raspagem!!')],
+    [sg.Text('bem vindo a nossa interface de raspagem!!')],
+    [sg.Text('essa interface tem por objetivo fazer a raspagem de dados dos grupos de API dos semestres já finalizados,')],
+    [sg.Text('salvando os mesmos em um banco de dados e disponibilizando-os para consulta enquanto mantém os dados salvos!')],
     [sg.Button('raspar')],
 ]
 
 #janela
-janela = sg.Window('Tela de raspagem', layout)
+janela = sg.Window('Nossa interface de raspagem', layout, element_justification='c')
 
 #ler os eventos
 while True:

@@ -15,5 +15,5 @@ setup(
     version = "0.1",
     description = "My GUI application!",
     options = {"build_exe": build_exe_options},
-    executables = [Executable("webscraping.py", base=base)]
+    executables = [Executable("scraping.py", base=base)]
 )
