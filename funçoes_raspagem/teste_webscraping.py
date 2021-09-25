@@ -8,18 +8,36 @@ import os
 
 def raspar_2020_1():
 
-    contador = 0
+    source = requests.get('https://fatecsjc-prd.azurewebsites.net/api/2020-1/turmas_2020-1.php').text
 
-    ads12020 = [todos[0]]
-    y = []
+    soup = BeautifulSoup(source, 'lxml')
 
-    while contador <= len(ads12020[0]) - 1:
-        x = f'{nome_equipes[contador]} {ads12020[0][contador]}'
-        y.append(x)
-        contador = contador + 1
-    with open('1ºADS-Turma A', 'w', newline='') as file:
-        for line in y:
-            file.write(line + os.linesep)
+    link = [i['href'] for i in soup.find_all('a', href=True)]
+
+    var2 = 0
+    lista_link = []
+    lista_grupo = []
+    var3 = 0
+
+    while var2 <= 10:
+
+        var = 'https://fatecsjc-prd.azurewebsites.net/api/2020-1/' +link[var2]
+        lista_link.append(var)
+        var2 = var2 + 1
+
+    while var3 <=10:
+        source = requests.get(lista_link[var3]).text
+        soup = BeautifulSoup(source, 'lxml')
+        text = [i for i in soup.find_all('a', text=True)]
+        link = [i['href'] for i in soup.find_all('a', href=True)]
+        lista_grupo.append(text)
+        lista_grupo.append(link)
+        var3 = var3 + 1
+
+    textfile = open("2020-1_file.txt", "w")
+    for element in lista_grupo:
+        textfile.write(element + "\n")
+    textfile.close()
 
 def raspar_2020_2():
 
