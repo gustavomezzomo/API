@@ -1,8 +1,6 @@
 from PySimpleGUI import PySimpleGUI as sg
-from bs4 import BeautifulSoup
-import requests
 from tkinter import *
-from semestre import Semestres
+from teste_webscraping import raspar_2020_1, raspar_2020_2, raspar_2021_1
 
 #layout
 sg.theme('BlueMono')
@@ -22,18 +20,8 @@ while True:
     if eventos == sg.WINDOW_CLOSED:
         break
     if eventos == 'raspar':
-        source = requests.get('https://fatecsjc-prd.azurewebsites.net/api/2020-2/turmas_2020-2.html').text
+        raspar_2020_1()
 
-        soup = BeautifulSoup(source, 'lxml')
+        raspar_2020_2()
 
-        text = [i for i in soup.find_all('td')]
-
-        semestre_list = []
-        for i in text [0:]:
-            result = i.text.strip()
-            semestre_list.append(result)
-
-        textfile = open("raspagem.txt", "w")
-        for element in semestre_list:
-            textfile.write(element + "\n")
-        textfile.close()
+        raspar_2021_1()
